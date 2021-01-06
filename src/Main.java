@@ -1,5 +1,6 @@
 public class Main {
     public static void main (String[] args){
-        System.out.println("Hola mundo");
+        Map mapa = new Map(10,5);
+        mapa.getMap();
     }
 }
