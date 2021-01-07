@@ -1,12 +1,12 @@
 abstract class Ship {
-    private String _shape;
-    private int _health;
-    private int _positionX;
-    private int _positionY;
+    protected String _shape;
+    protected int _health;
+    protected int _positionX;
+    protected int _positionY;
 
     public Ship (String forma, int health){
-        _shape = forma;
-        _health = health;
+        set_shape(forma);
+        set_health(health);
     }
 
     public int get_health() {
@@ -33,13 +33,9 @@ abstract class Ship {
         return _positionY;
     }
 
-    public void set_positionX(int positionX) {
-        _positionX = positionX;
-    }
+    public abstract void set_positionX(int X);
 
-    public void set_positionY(int positionY) {
-        _positionY = positionY;
-    }
+    public  abstract void set_positionY(int Y);
 
     public abstract void shoot();
 }
