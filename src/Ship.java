@@ -1,9 +1,9 @@
 abstract class Ship {
-    private String _Forma;
+    private String _shape;
     private int _health;
 
     public Ship (String forma, int health){
-        _Forma = forma;
+        _shape = forma;
         _health = health;
     }
 
@@ -11,12 +11,12 @@ abstract class Ship {
         return _health;
     }
 
-    public String get_Forma() {
-        return _Forma;
+    public String get_shape() {
+        return _shape;
     }
 
-    public void set_Forma(String Forma) {
-        _Forma = Forma;
+    public void set_shape(String Forma) {
+        _shape = Forma;
     }
 
     public void set_health(int health) {
