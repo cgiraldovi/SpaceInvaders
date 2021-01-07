@@ -29,7 +29,6 @@ public class Map {
             System.out.println();
             for (int j = 0; j < get_distanceX(); j ++){
                 System.out.print("X");
-
             }
         }
 
