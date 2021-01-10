@@ -32,7 +32,7 @@ abstract class Ship {
         return _positionY;
     }
 
-    public abstract void move(String movimiento, Map mapa);
+    public abstract void play(Map mapa);
 
     public abstract void set_positionX(int positionX);
 

@@ -1,5 +1,7 @@
-public class Player extends Ship{
+import java.util.Scanner;
 
+public class Player extends Ship{
+    Scanner entrada = new Scanner(System.in);
 
     public Player(int health, int positionX, int positionY) {
         super(health);
@@ -9,11 +11,21 @@ public class Player extends Ship{
     }
 
 
-    @Override
-    public void move(String movimiento, Map mapa) {
+    public void move(String movimiento) {
         if(movimiento.equals("a")){
             _positionX --;
         }else if (movimiento.equals("d")){
+            _positionX ++;
+        }
+    }
+
+    @Override
+    public void play(Map mapa) {
+        move(entrada.next());
+        if(get_positionX() > mapa.get_distanceX()){
+            _positionX --;
+        }
+        else if(get_positionX() < 1){
             _positionX ++;
         }
     }
@@ -30,4 +42,5 @@ public class Player extends Ship{
 
     @Override
     public void shoot() {}
+
 }
