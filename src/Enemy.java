@@ -1,18 +1,26 @@
 public class Enemy extends Ship {
 
+    public Enemy(int health, int positionX, int positionY) {
+        super(health);
+        set_positionX(positionX);
+        set_positionY(positionY);
+        set_shape("Y");
 
-    public Enemy(String forma, int health) {
-        super(forma, health);
     }
 
     @Override
-    public void set_positionX(int X) {
-        _positionX = X;
+    public void move(String movimiento, Map mapa) {
+
     }
 
     @Override
-    public void set_positionY(int Y) {
-        _positionY = Y;
+    public void set_positionX(int positionX) {
+
+    }
+
+    @Override
+    public void set_positionY(int positionY) {
+
     }
 
     @Override

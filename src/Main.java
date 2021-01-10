@@ -4,14 +4,26 @@ public class Main {
 
     public static void main (String[] args){
 
-        System.out.println("Escriba la distancia horizontal y verticall del mapa");
+        System.out.println("Escriba la distancia horizontal y vertical del mapa");
         Map mapa = new Map(entrada.nextInt(), entrada.nextInt());
+        Enemy enemigo1 =  new Enemy(3, mapa.get_distanceX(), mapa.get_distanceY());
+        Player jugador = new Player(3, mapa.get_distanceX(),mapa.get_distanceY());
 
-        Enemy enemigo1 =  new Enemy("Y",3);
-        Player jugador = new Player("H",3);
-
-        mapa.getMap();
-        System.out.println(enemigo1.get_shape());
-        System.out.println(jugador.get_shape());
+        while(true){
+            juego(jugador, mapa);
+        }
     }
+
+    public static void juego(Player jugador, Map mapa){
+        mapa.getMap(jugador);
+        jugador.move(entrada.next());
+        if(jugador.get_positionX() > mapa.get_distanceX()){
+           jugador._positionX --;
+        }
+        else if(jugador.get_positionX() < 1){
+            jugador._positionX ++;
+        }
+    }
+
+
 }

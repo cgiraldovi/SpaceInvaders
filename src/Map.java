@@ -23,14 +23,18 @@ public class Map {
         _distanceY = distanceY;
     }
 
-    public void getMap() {
+    public void getMap(Player jugador) {
 
-        for (int i = 0; i < get_distanceY(); i ++){
+        for (int j = 1; j <= get_distanceY(); j ++){
             System.out.println();
-            for (int j = 0; j < get_distanceX(); j ++){
-                System.out.print("X");
+            for (int i = 1; i <= get_distanceX(); i ++){
+                if (j == jugador.get_positionY() && i == jugador.get_positionX()){
+                    System.out.print(jugador.get_shape());
+                } else {
+                    System.out.print(".");
+                }
             }
         }
-
+        System.out.println();
     }
 }

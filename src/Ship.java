@@ -4,8 +4,7 @@ abstract class Ship {
     protected int _positionX;
     protected int _positionY;
 
-    public Ship (String forma, int health){
-        set_shape(forma);
+    public Ship (int health){
         set_health(health);
     }
 
@@ -17,8 +16,8 @@ abstract class Ship {
         return _shape;
     }
 
-    public void set_shape(String Forma) {
-        _shape = Forma;
+    public void set_shape(String shape) {
+        _shape = shape;
     }
 
     public void set_health(int health) {
@@ -33,9 +32,11 @@ abstract class Ship {
         return _positionY;
     }
 
-    public abstract void set_positionX(int X);
+    public abstract void move(String movimiento, Map mapa);
 
-    public  abstract void set_positionY(int Y);
+    public abstract void set_positionX(int positionX);
+
+    public abstract void set_positionY(int positionY);
 
     public abstract void shoot();
 }
