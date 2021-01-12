@@ -6,8 +6,9 @@ public class Main {
 
         System.out.println("Escriba la distancia horizontal y vertical del mapa");
         Map mapa = new Map( entrada.nextInt(), entrada.nextInt());
-        Enemy enemigo1 =  new Enemy(3, 1, 1);
+        Enemy enemigo1 =  new Enemy(3, mapa.get_distanceX(), 1);
         Player jugador = new Player(3, mapa.get_distanceX(),mapa.get_distanceY());
+        Shot gun = new Shot();
 
         while(true){
             mapa.getMap(jugador, enemigo1);

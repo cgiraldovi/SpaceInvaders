@@ -8,23 +8,16 @@ public class Enemy extends Ship {
         set_shape("Y");
     }
 
-    public boolean move(Map mapa){
-       if(get_positionX() == mapa.get_distanceX()){
-           return false;
-       } else if(get_positionX() == 1){
-           return true;
-       }
-       else {return true;}
-    }
-
 
     @Override
     public void play(Map mapa) {
         if(get_positionX() == mapa.get_distanceX()){
             comparador = false;
+            _positionY ++;
         }
         if(get_positionX() == 1){
             comparador = true;
+            _positionY ++;
         }
         if(comparador){
             _positionX ++;
@@ -38,7 +31,7 @@ public class Enemy extends Ship {
 
     @Override
     public void set_positionX(int positionX) {
-        _positionX = positionX;
+        _positionX = positionX/2 + 1;
     }
 
     @Override

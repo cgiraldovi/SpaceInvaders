@@ -16,6 +16,8 @@ public class Player extends Ship{
             _positionX --;
         }else if (movimiento.equals("d")){
             _positionX ++;
+        } else if(movimiento.equals(" ")){
+            shoot();
         }
     }
 
@@ -41,6 +43,8 @@ public class Player extends Ship{
     }
 
     @Override
-    public void shoot() {}
+    public void shoot() {
+        
+    }
 
 }
