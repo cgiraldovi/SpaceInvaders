@@ -3,6 +3,7 @@ import java.util.Scanner;
 public class Player extends Ship{
     Scanner entrada = new Scanner(System.in);
 
+
     public Player(int health, int positionX, int positionY) {
         super(health);
         set_positionX(positionX);
@@ -23,8 +24,12 @@ public class Player extends Ship{
 
     @Override
     public void play(Map mapa) {
-        move(entrada.next());
-        if(get_positionX() > mapa.get_distanceX()){
+        String opcion = entrada.next();
+        move(opcion);
+        if(opcion.equals(" ")){
+            shoot();
+        }
+         else if(get_positionX() > mapa.get_distanceX()){
             _positionX --;
         }
         else if(get_positionX() < 1){
@@ -44,7 +49,8 @@ public class Player extends Ship{
 
     @Override
     public void shoot() {
-        
     }
+
+
 
 }

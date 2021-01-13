@@ -3,8 +3,9 @@ public class Map {
     private int _distanceY;
 
     public Map(int X, int Y){
-        _distanceX = X;
-        _distanceY = Y;
+
+        set_distanceX(X);
+        set_distanceY(Y);
     }
 
     public int get_distanceX() {
