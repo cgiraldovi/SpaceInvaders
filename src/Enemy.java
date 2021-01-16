@@ -11,15 +11,29 @@ public class Enemy extends Ship {
 
     @Override
     public void play(Map mapa) {
+
+
         if(get_positionX() == mapa.get_distanceX()){
+
+            if(comparador){
+                _positionY ++;
+            }
+            if(comparador){
+              _positionX ++;
+            }
             comparador = false;
-            _positionY ++;
-        }
-        if(get_positionX() == 1){
+
+        } else if(get_positionX() == 1){
+
+            if(!comparador){
+            _positionY ++;}
+            if(!comparador){
+                _positionX --;
+            }
             comparador = true;
-            _positionY ++;
         }
-        if(comparador){
+
+        if (comparador){
             _positionX ++;
         } else {
             _positionX --;
