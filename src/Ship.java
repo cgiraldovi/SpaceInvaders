@@ -32,8 +32,6 @@ abstract class Ship {
         return _positionY;
     }
 
-    public abstract void play(Map mapa);
-
     public abstract void set_positionX(int positionX);
 
     public abstract void set_positionY(int positionY);

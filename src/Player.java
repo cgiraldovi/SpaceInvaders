@@ -12,30 +12,7 @@ public class Player extends Ship{
     }
 
 
-    public void move(String movimiento) {
-        if(movimiento.equals("a")){
-            _positionX --;
-        }else if (movimiento.equals("d")){
-            _positionX ++;
-        } else if(movimiento.equals(" ")){
-            shoot();
-        }
-    }
 
-    @Override
-    public void play(Map mapa) {
-        String opcion = entrada.next();
-        move(opcion);
-        if(opcion.equals(" ")){
-            shoot();
-        }
-         else if(get_positionX() > mapa.get_distanceX()){
-            _positionX --;
-        }
-        else if(get_positionX() < 1){
-            _positionX ++;
-        }
-    }
 
     @Override
     public void set_positionX(int positionX) {
@@ -49,6 +26,7 @@ public class Player extends Ship{
 
     @Override
     public void shoot() {
+        Shot gun = new Shot();
     }
 
 

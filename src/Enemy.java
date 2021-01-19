@@ -1,5 +1,5 @@
 public class Enemy extends Ship {
-    private boolean comparador = true;
+    public boolean comparador = true;
 
     public Enemy(int health, int positionX, int positionY) {
         super(health);
@@ -8,40 +8,6 @@ public class Enemy extends Ship {
         set_shape("Y");
     }
 
-
-    @Override
-    public void play(Map mapa) {
-
-
-        if(get_positionX() == mapa.get_distanceX()){
-
-            if(comparador){
-                _positionY ++;
-            }
-            if(comparador){
-              _positionX ++;
-            }
-            comparador = false;
-
-        } else if(get_positionX() == 1){
-
-            if(!comparador){
-            _positionY ++;}
-            if(!comparador){
-                _positionX --;
-            }
-            comparador = true;
-        }
-
-        if (comparador){
-            _positionX ++;
-        } else {
-            _positionX --;
-        }
-
-
-
-    }
 
     @Override
     public void set_positionX(int positionX) {
