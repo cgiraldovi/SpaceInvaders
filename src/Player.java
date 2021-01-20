@@ -1,8 +1,6 @@
-import java.util.Scanner;
-
-public class Player extends Ship{
-    Scanner entrada = new Scanner(System.in);
-
+public class Player extends Ship {
+    Shot[] guns = new Shot[9];
+    static int cont = 0;
 
     public Player(int health, int positionX, int positionY) {
         super(health);
@@ -12,11 +10,9 @@ public class Player extends Ship{
     }
 
 
-
-
     @Override
     public void set_positionX(int positionX) {
-        _positionX = positionX/2 + 1;
+        _positionX = positionX / 2 + 1;
     }
 
     @Override
@@ -24,11 +20,13 @@ public class Player extends Ship{
         _positionY = positionY;
     }
 
-    @Override
-    public void shoot() {
-        Shot gun = new Shot();
-    }
 
+    public void shoot() {
+        if (cont <= guns.length) {
+            guns[cont] = new Shot(get_positionX(), get_positionY());
+            cont++;
+        }
+    }
 
 
 }

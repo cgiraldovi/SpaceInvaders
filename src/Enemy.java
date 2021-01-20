@@ -19,7 +19,4 @@ public class Enemy extends Ship {
         _positionY = positionY;
     }
 
-    @Override
-    public void shoot() {
-    }
 }

@@ -4,6 +4,11 @@ public class Shot {
     private int _positionX;
     private int _positionY;
 
+    public Shot(int positionX, int positionY) {
+        set_positionX(positionX);
+        set_positionY(positionY + 1);
+    }
+
     public void set_positionY(int positionY) {
         _positionY = positionY;
     }
@@ -24,7 +29,4 @@ public class Shot {
         return _forma;
     }
 
-    public void play(){
-
-    }
 }

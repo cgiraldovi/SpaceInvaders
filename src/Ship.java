@@ -36,5 +36,4 @@ abstract class Ship {
 
     public abstract void set_positionY(int positionY);
 
-    public abstract void shoot();
 }

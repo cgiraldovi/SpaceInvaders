@@ -7,6 +7,10 @@ public class Main {
     public static Player _jugador = new Player(1, _mapa.get_distanceX(), _mapa.get_distanceY());
 
     public static void main(String[] args) {
+        System.out.println("Bienvendio a esta mecha de juego");
+        System.out.println();
+
+
         while (true) {
             play(_jugador, _mapa, _enemigo1);
         }
@@ -25,12 +29,8 @@ public class Main {
         } else if (movimiento.equals("d")) {
             _jugador._positionX++;
         } else if (movimiento.equals(" ")){
-
+            _jugador.shoot();
         }
-
-
-
-
 
         if(_jugador.get_positionX() > _mapa.get_distanceX()){
             _jugador._positionX --;
@@ -83,6 +83,8 @@ public class Main {
         }
         System.out.println();
     }
-
+    public static void movimientoBala(){
+        
+    }
 
 }
