@@ -1,8 +1,8 @@
 public class Shot {
     private String _forma = "o";
     private int _damage;
-    private int _positionX;
-    private int _positionY;
+    protected int _positionX;
+    protected int _positionY;
 
     public Shot(int positionX, int positionY) {
         set_positionX(positionX);

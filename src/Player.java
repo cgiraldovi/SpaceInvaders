@@ -1,7 +1,4 @@
 public class Player extends Ship {
-    Shot[] guns = new Shot[9];
-    static int cont = 0;
-
     public Player(int health, int positionX, int positionY) {
         super(health);
         set_positionX(positionX);
@@ -21,12 +18,10 @@ public class Player extends Ship {
     }
 
 
-    public void shoot() {
-        if (cont <= guns.length) {
-            guns[cont] = new Shot(get_positionX(), get_positionY());
-            cont++;
+    public void shoot(Shot gun) {
+            gun._positionX = get_positionX();
+            gun._positionY = get_positionY()+1;
         }
-    }
 
 
 }
