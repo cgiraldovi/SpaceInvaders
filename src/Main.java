@@ -10,8 +10,15 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("Bienvendio a esta mecha de juego");
         System.out.println();
-        while (true) {
-            play();
+
+        System.out.println("desea comenzar con el juego?");
+        System.out.println("Y: Si");
+        System.out.println("N: No");
+        String option = entrada.next();
+        if (option.equals("y")){
+            while (true) {
+                play();
+        }
         }
     }
 
@@ -29,7 +36,7 @@ public class Main {
         } else if (movimiento.equals("d")) {
             _jugador._positionX++;
         } else if (movimiento.equals("o")) {
-            _jugador.shoot(_gun);
+            _gun = _jugador.shoot();
         }
 
         if (_jugador.get_positionX() > _mapa.get_distanceX()) {
@@ -77,9 +84,13 @@ public class Main {
                     System.out.print(_jugador.get_shape());
                 } else if (j == _enemigo1.get_positionY() && i == _enemigo1.get_positionX()) {
                     System.out.print(_enemigo1.get_shape());
-                } else if (j == _gun.get_positionY() && i == _gun.get_positionX()) {
-                    System.out.print(_gun.get_forma());
-                } else {
+                } else if(_gun != null){
+                    if (j == _gun.get_positionY() && i == _gun.get_positionX()) {
+                        System.out.print(_gun.get_forma());
+                    } else {
+                        System.out.print(".");
+                    }
+                }else {
                     System.out.print(".");
                 }
             }
@@ -88,6 +99,7 @@ public class Main {
     }
 
     public static void movimientoBala() {
+        if(_gun != null)
         _gun._positionY --;
     }
 

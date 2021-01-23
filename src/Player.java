@@ -18,9 +18,9 @@ public class Player extends Ship {
     }
 
 
-    public void shoot(Shot gun) {
-            gun._positionX = get_positionX();
-            gun._positionY = get_positionY()+1;
+    public Shot shoot() {
+            Shot gun = new Shot(get_positionX(), get_positionY() -1);
+            return gun;
         }
 
 
