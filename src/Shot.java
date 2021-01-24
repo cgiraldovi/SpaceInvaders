@@ -25,6 +25,10 @@ public class Shot {
         return _positionX;
     }
 
+    public int get_damage() {
+        return _damage;
+    }
+
     public String get_forma() {
         return _forma;
     }
