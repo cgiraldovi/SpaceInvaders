@@ -5,7 +5,7 @@ public class Shot {
     protected int _positionY;
 
     public Shot(int positionX, int positionY) {
-        set_positionX(positionX);
+        set_positionX(positionX-1);
         set_positionY(positionY + 1);
     }
 

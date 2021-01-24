@@ -5,15 +5,16 @@ public class Main {
     public static Map _mapa = new Map(11, 6);
     public static Enemy _enemigo1 = new Enemy(1, _mapa.get_distanceX(), 1);
     public static Player _jugador = new Player(1, _mapa.get_distanceX(), _mapa.get_distanceY());
-    public static Shot _gun = null;
+    public static Shot[] _guns = new Shot[9];
+    public static int _contador = 0;
 
     public static void main(String[] args) {
         System.out.println("Bienvendio a esta mecha de juego");
         System.out.println();
-
         System.out.println("desea comenzar con el juego?");
         System.out.println("Y: Si");
         System.out.println("N: No");
+
         String option = entrada.next();
         if (option.equals("y")){
             while (true) {
@@ -36,7 +37,9 @@ public class Main {
         } else if (movimiento.equals("d")) {
             _jugador._positionX++;
         } else if (movimiento.equals("o")) {
-            _gun = _jugador.shoot();
+            _guns[_contador] = _jugador.shoot();
+            if(_contador < _guns.length-1){
+            _contador ++;}
         }
 
         if (_jugador.get_positionX() > _mapa.get_distanceX()) {
@@ -84,23 +87,29 @@ public class Main {
                     System.out.print(_jugador.get_shape());
                 } else if (j == _enemigo1.get_positionY() && i == _enemigo1.get_positionX()) {
                     System.out.print(_enemigo1.get_shape());
-                } else if(_gun != null){
-                    if (j == _gun.get_positionY() && i == _gun.get_positionX()) {
-                        System.out.print(_gun.get_forma());
-                    } else {
-                        System.out.print(".");
-                    }
-                }else {
+                } else {
                     System.out.print(".");
                 }
+
+                for (Shot gun: _guns) {
+                    if(gun != null){
+                        if (j == gun.get_positionY() && i == gun.get_positionX()) {
+                            System.out.print(gun.get_forma());
+                        }
+                    }
+                }
+
             }
         }
         System.out.println();
     }
 
+
     public static void movimientoBala() {
-        if(_gun != null)
-        _gun._positionY --;
+        for (Shot gun:_guns) {
+            if(gun != null)
+                gun._positionY --;
+        }
     }
 
 }
