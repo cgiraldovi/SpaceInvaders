@@ -9,12 +9,12 @@ public class Player extends Ship {
 
     @Override
     public void set_positionX(int positionX) {
-        _positionX = positionX / 2 + 1;
+        _positionX = positionX / 2;
     }
 
     @Override
     public void set_positionY(int positionY) {
-        _positionY = positionY;
+        _positionY = positionY-1;
     }
 
 

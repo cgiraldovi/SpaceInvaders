@@ -1,6 +1,6 @@
 public class Shot {
     private String _forma = "o";
-    private int _damage;
+    private int _damage = 1;
     protected int _positionX;
     protected int _positionY;
 
@@ -14,7 +14,7 @@ public class Shot {
     }
 
     public void set_positionX(int positionX) {
-        _positionX = positionX;
+        _positionX = positionX+1;
     }
 
     public int get_positionY() {

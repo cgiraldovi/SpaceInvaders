@@ -11,7 +11,7 @@ public class Enemy extends Ship {
 
     @Override
     public void set_positionX(int positionX) {
-        _positionX = positionX/2 + 1;
+        _positionX = positionX/2;
     }
 
     @Override

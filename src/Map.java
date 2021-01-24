@@ -1,7 +1,7 @@
 public class Map {
     private int _distanceX;
     private int _distanceY;
-    private String[][] _matriz;
+    protected String[][] _matriz;
 
     public Map(int X, int Y){
         set_distanceX(X);
@@ -25,9 +25,7 @@ public class Map {
         _distanceY = distanceY;
     }
 
-    public String[][] get_matriz() {
-        return _matriz;
-    }
+
 
     public void createMap(){
         for (int j = 0; j < _distanceY; j ++){
@@ -35,12 +33,17 @@ public class Map {
                 _matriz[j][i] = ".";
             }
         }
-
-
-
     }
 
-
+    public void showMap(){
+        for (String[] c: _matriz) {
+            System.out.println();
+            for (String d: c) {
+                System.out.print(d);
+            }
+        }
+        System.out.println();
+    }
 
 
 }
