@@ -1,17 +1,18 @@
 public class Enemy extends Ship {
-    public boolean comparador = true;
+    public boolean comparador;
 
     public Enemy(int health, int positionX, int positionY) {
         super(health);
         set_positionX(positionX);
         set_positionY(positionY);
         set_shape("Y");
+        comparador = true;
     }
 
 
     @Override
     public void set_positionX(int positionX) {
-        _positionX = positionX/2;
+        _positionX = positionX + 2;
     }
 
     @Override

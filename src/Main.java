@@ -2,13 +2,29 @@ import java.util.Scanner;
 
 public class Main {
     public static Scanner entrada = new Scanner(System.in);
-    public static Map _mapa = new Map(11, 5);
+    public static Map _mapa = new Map(25, 8);
     public static Enemy _enemigo1 = new Enemy(1, _mapa.get_distanceX(), 0);
+    public static Enemy[] _enemies = new Enemy[11];
     public static Player _jugador = new Player(1, _mapa.get_distanceX(), _mapa.get_distanceY());
-    public static Shot[] _guns = new Shot[5];
+    public static Shot[] _guns = new Shot[20];
     public static int _contador = 0;
 
     public static void main(String[] args) {
+
+        int cont = 0;
+        for (int i = 0; i < _enemies.length; i++) {
+            int posX = cont;
+            int posY;
+            if (i % 2 == 0) {
+                posY = 0;
+            } else {
+                posY = 1;
+            }
+            _enemies[i] = new Enemy(1, posX, posY);
+        cont = cont +2;
+        }
+
+
         System.out.println("Bienvendio a esta mecha de juego");
         System.out.println();
         System.out.println("desea comenzar con el juego?");
@@ -39,10 +55,10 @@ public class Main {
         } else if (movimiento.equals("d")) {
             _jugador._positionX++;
         } else if (movimiento.equals("o")) {
-            if (_contador < _guns.length){
+            if (_contador < _guns.length) {
                 _guns[_contador] = _jugador.shoot();
             }
-            _contador ++;
+            _contador++;
         }
 
         if (_jugador.get_positionX() > _mapa.get_distanceX() - 1) {
@@ -55,33 +71,35 @@ public class Main {
 
     public static void movimientoEnemigo() {
 
-        if (_enemigo1 != null) {
-            if (_enemigo1.get_positionX() == _mapa.get_distanceX() - 1) {
-                if (_enemigo1.comparador) {
-                    _enemigo1._positionY++;
-                }
-                if (_enemigo1.comparador) {
-                    _enemigo1._positionX++;
-                }
-                _enemigo1.comparador = false;
+        for (int i = 0; i < _enemies.length; i++) {
+            if (_enemies[i] != null) {
+                if (_enemies[i].get_positionX() == _mapa.get_distanceX()-1) {
+                    if (_enemies[i].comparador) {
+                        _enemies[i]._positionY++;
+                    }
+                    if (_enemies[i].comparador) {
+                        _enemies[i]._positionX++;
+                    }
+                    _enemies[i].comparador = false;
 
-            } else if (_enemigo1.get_positionX() == 0) {
+                } else if (_enemies[i].get_positionX() == 0) {
 
-                if (!_enemigo1.comparador) {
-                    _enemigo1._positionY++;
+                    if (!_enemies[i].comparador) {
+                        _enemies[i]._positionY++;
+                    }
+                    if (!_enemies[i].comparador) {
+                        _enemies[i]._positionX--;
+                    }
+                    _enemies[i].comparador = true;
                 }
-                if (!_enemigo1.comparador) {
-                    _enemigo1._positionX--;
+
+                if (_enemies[i].comparador) {
+                    _enemies[i]._positionX++;
+                } else {
+                    _enemies[i]._positionX--;
                 }
-                _enemigo1.comparador = true;
+
             }
-
-            if (_enemigo1.comparador) {
-                _enemigo1._positionX++;
-            } else {
-                _enemigo1._positionX--;
-            }
-
         }
 
 
@@ -96,33 +114,43 @@ public class Main {
                 if (j == _jugador.get_positionY() && i == _jugador.get_positionX()) {
                     _mapa._matriz[j][i] = _jugador.get_shape();
                 }
-                if (_enemigo1 != null) {
-                    if (j == _enemigo1.get_positionY() && i == _enemigo1.get_positionX()) {
-                        _mapa._matriz[j][i] = _enemigo1.get_shape();
+
+                for (int e = 0; e < _enemies.length; e++) {
+                    if (_enemies[e] != null) {
+                        if (j == _enemies[e].get_positionY() && i == _enemies[e].get_positionX()) {
+                            _mapa._matriz[j][i] = _enemies[e].get_shape();
+                        }
                     }
                 }
 
 
-                for (int k = 0; k < _guns.length; k ++){
-                    if (_guns[k] != null){
-                        if (_enemigo1 != null){
-                            if (_enemigo1.get_positionX() == _guns[k].get_positionX()
-                                && _enemigo1.get_positionY() == _guns[k].get_positionY()){
-                                if (_enemigo1.get_health() - _guns[k].get_damage() == 0){
-                                    _enemigo1 = null;
+                for (int k = 0; k < _guns.length; k++) {
+
+                    for (int l = 0; l < _enemies.length; l++) {
+
+                        if (_guns[k] != null) {
+                            if (_enemies[l] != null) {
+                                if (_enemies[l].get_positionX() == _guns[k].get_positionX()
+                                        && _enemies[l].get_positionY() == _guns[k].get_positionY()) {
+                                    if (_enemies[l].get_health() - _guns[k].get_damage() == 0) {
+                                        _enemies[l] = null;
+                                    }
+                                    _guns[k] = null;
                                 }
-                                _guns[k] = null;
+                            }
+                        }
+
+                        if (_guns[k] != null) {
+                            if (j == _guns[k].get_positionY() && i == _guns[k].get_positionX()) {
+                                _mapa._matriz[j][i] = _guns[k].get_forma();
                             }
                         }
                     }
 
-                    if (_guns[k] != null){
-                        if (j == _guns[k].get_positionY() && i == _guns[k].get_positionX()){
-                            _mapa._matriz[j][i] = _guns[k].get_forma();
-                        }
-                    }
 
                 }
+
+
             }
         }
 
