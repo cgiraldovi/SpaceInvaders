@@ -2,36 +2,46 @@ import java.util.Scanner;
 
 public class Main {
     public static Scanner entrada = new Scanner(System.in);
-    public static Map _mapa = new Map(25, 4);
-    public static Enemy _enemigo1 = new Enemy(1, _mapa.get_distanceX(), 0);
-    public static Enemy[] _enemies = new Enemy[11];
-    public static Player _jugador = new Player(1, _mapa.get_distanceX(), _mapa.get_distanceY());
-    public static Shot[] _guns = new Shot[30];
-    public static int _contador = 0;
+    public static Map _mapa;
+    public static Enemy[] _enemies;
+    public static Player _jugador;
+    public static Shot[] _guns;
+    public static int _contador;
 
 
 
     public static void main(String[] args) {
 
-        int cont = 0;
-        for (int i = 0; i < _enemies.length; i++) {
-            int posX = cont;
-            int posY;
-            if (i % 2 == 0) {
-                posY = 0;
-            } else {
-                posY = 1;
-            }
-            _enemies[i] = new Enemy(1, posX, posY);
-        cont = cont +2;
-        }
-
         while(true){
+            _mapa = new Map(26, 10);
+            _enemies = new Enemy[11];
+            _jugador = new Player(1, _mapa.get_distanceX(), _mapa.get_distanceY());
+            _guns = new Shot[15];
+            _contador = 0;
+
+
+            int cont = 0;
+            for (int i = 0; i < _enemies.length; i++) {
+                int posX = cont;
+                int posY;
+                if (i % 2 == 0) {
+                    posY = 0;
+                } else {
+                    posY = 1;
+                }
+                _enemies[i] = new Enemy(1, posX, posY);
+                cont = cont +2;
+            }
+
+
+
             System.out.println("Bienvendio a esta mecha de juego");
             System.out.println();
             System.out.println("desea comenzar con el juego?");
+            System.out.println();
             System.out.println("Y: Si");
             System.out.println("N: No");
+            System.out.println();
 
             String option = entrada.next();
             if (option.equals("y")) {
@@ -59,7 +69,6 @@ public class Main {
             } else if (option.equals("n")){
                 break;
             }
-            return;
         }
 
 
