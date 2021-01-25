@@ -2,12 +2,14 @@ import java.util.Scanner;
 
 public class Main {
     public static Scanner entrada = new Scanner(System.in);
-    public static Map _mapa = new Map(25, 8);
+    public static Map _mapa = new Map(25, 4);
     public static Enemy _enemigo1 = new Enemy(1, _mapa.get_distanceX(), 0);
     public static Enemy[] _enemies = new Enemy[11];
     public static Player _jugador = new Player(1, _mapa.get_distanceX(), _mapa.get_distanceY());
-    public static Shot[] _guns = new Shot[20];
+    public static Shot[] _guns = new Shot[30];
     public static int _contador = 0;
+
+
 
     public static void main(String[] args) {
 
@@ -24,19 +26,42 @@ public class Main {
         cont = cont +2;
         }
 
+        while(true){
+            System.out.println("Bienvendio a esta mecha de juego");
+            System.out.println();
+            System.out.println("desea comenzar con el juego?");
+            System.out.println("Y: Si");
+            System.out.println("N: No");
 
-        System.out.println("Bienvendio a esta mecha de juego");
-        System.out.println();
-        System.out.println("desea comenzar con el juego?");
-        System.out.println("Y: Si");
-        System.out.println("N: No");
-
-        String option = entrada.next();
-        if (option.equals("y")) {
-            while (true) {
-                play();
+            String option = entrada.next();
+            if (option.equals("y")) {
+                while (true) {
+                    play();
+                    if (badEnding()){
+                        System.out.println();
+                        System.out.println();
+                        System.out.println();
+                        System.out.println("Felicidades, has perdido, haber estudiado");
+                        System.out.println();
+                        System.out.println();
+                        break;
+                    }
+                    if (goodEnding()){
+                        System.out.println();
+                        System.out.println();
+                        System.out.println();
+                        System.out.println("Felicidades, has ganado, se nota que has estudiado");
+                        System.out.println();
+                        System.out.println();
+                        break;
+                    }
+                }
+            } else if (option.equals("n")){
+                break;
             }
+            return;
         }
+
 
 
     }
@@ -46,6 +71,7 @@ public class Main {
         movimientoJugador();
         movimientoEnemigo();
         movimientoBala();
+
     }
 
     public static void movimientoJugador() {
@@ -54,12 +80,12 @@ public class Main {
             _jugador._positionX--;
         } else if (movimiento.equals("d")) {
             _jugador._positionX++;
-        } else if (movimiento.equals("o")) {
+        }else if (movimiento.equals("o")) {
             if (_contador < _guns.length) {
                 _guns[_contador] = _jugador.shoot();
             }
             _contador++;
-        }
+        } 
 
         if (_jugador.get_positionX() > _mapa.get_distanceX() - 1) {
             _jugador._positionX--;
@@ -150,18 +176,53 @@ public class Main {
 
                 }
 
-
             }
+
+
         }
 
+
         _mapa.showMap();
+
     }
 
     public static void movimientoBala() {
         for (Shot gun : _guns) {
             if (gun != null)
                 gun._positionY--;
+
         }
     }
+
+    public static Boolean badEnding(){
+        Boolean comparator = false;
+        for (Enemy enemigo: _enemies){
+            if (enemigo != null){
+                if (enemigo.get_positionY() == _mapa.get_distanceY()-1){
+                    comparator = true;
+                    break;
+                }
+            }
+        }
+        return comparator;
+    }
+
+    public static Boolean goodEnding(){
+        Boolean comparator = false;
+        int cont = 0;
+        for (Enemy enemigo: _enemies){
+            if (enemigo == null){
+                cont ++;
+            }
+        }
+
+        if (cont == _enemies.length-1){
+            comparator = true;
+        }
+
+        return comparator;
+    }
+
+
 
 }
