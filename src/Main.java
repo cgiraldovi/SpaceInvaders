@@ -7,16 +7,17 @@ public class Main {
     public static Player _jugador;
     public static Shot[] _guns;
     public static int _contador;
+    public static Boolean _game = true;
 
 
 
     public static void main(String[] args) {
 
         while(true){
-            _mapa = new Map(26, 10);
+            _mapa = new Map(26, 8);
             _enemies = new Enemy[11];
             _jugador = new Player(1, _mapa.get_distanceX(), _mapa.get_distanceY());
-            _guns = new Shot[15];
+            _guns = new Shot[20];
             _contador = 0;
 
 
@@ -36,15 +37,20 @@ public class Main {
 
 
             System.out.println("Bienvendio a esta mecha de juego");
+            System.out.println("Moverse hacia la izquierda: a");
+            System.out.println("Moverse hacia la derecha: d");
+            System.out.println("Disparar: o");
+            System.out.println("Si desea no hacer ninguna accion, pulse cualquier otra tecla");
             System.out.println();
             System.out.println("desea comenzar con el juego?");
             System.out.println();
             System.out.println("Y: Si");
             System.out.println("N: No");
+            System.out.println("Exit: salir de la partida");
             System.out.println();
 
             String option = entrada.next();
-            if (option.equals("y")) {
+            if (option.equalsIgnoreCase("y")) {
                 while (true) {
                     play();
                     if (badEnding()){
@@ -65,8 +71,12 @@ public class Main {
                         System.out.println();
                         break;
                     }
+                    if (!_game){
+                        break;
+                    }
+
                 }
-            } else if (option.equals("n")){
+            } else if (option.equalsIgnoreCase("n")){
                 break;
             }
         }
@@ -77,6 +87,7 @@ public class Main {
 
     public static void play() {
         getMap();
+        information();
         movimientoJugador();
         movimientoEnemigo();
         movimientoBala();
@@ -85,16 +96,18 @@ public class Main {
 
     public static void movimientoJugador() {
         String movimiento = entrada.next();
-        if (movimiento.equals("a")) {
+        if (movimiento.equalsIgnoreCase("a")) {
             _jugador._positionX--;
-        } else if (movimiento.equals("d")) {
+        } else if (movimiento.equalsIgnoreCase("d")) {
             _jugador._positionX++;
-        }else if (movimiento.equals("o")) {
+        }else if (movimiento.equalsIgnoreCase("o")) {
             if (_contador < _guns.length) {
                 _guns[_contador] = _jugador.shoot();
             }
             _contador++;
-        } 
+        } else if(movimiento.equalsIgnoreCase("exit")){
+            _game = false;
+        }
 
         if (_jugador.get_positionX() > _mapa.get_distanceX() - 1) {
             _jugador._positionX--;
@@ -157,8 +170,6 @@ public class Main {
                         }
                     }
                 }
-
-
                 for (int k = 0; k < _guns.length; k++) {
 
                     for (int l = 0; l < _enemies.length; l++) {
@@ -169,8 +180,10 @@ public class Main {
                                         && _enemies[l].get_positionY() == _guns[k].get_positionY()) {
                                     if (_enemies[l].get_health() - _guns[k].get_damage() == 0) {
                                         _enemies[l] = null;
+                                        _mapa._matriz[_guns[k].get_positionY()][_guns[k].get_positionX()] = "X";
                                     }
                                     _guns[k] = null;
+
                                 }
                             }
                         }
@@ -230,6 +243,26 @@ public class Main {
         }
 
         return comparator;
+    }
+
+    public static void information(){
+        int contadorBalas = 0;
+        int contadorEnemigo = 0;
+        for (Enemy enemigo: _enemies){
+            if (enemigo != null){
+                contadorEnemigo ++;
+            }
+        }
+        if (_guns.length - _contador > 0){
+            contadorBalas = _guns.length - _contador;
+        }
+
+
+
+
+        System.out.println();
+        System.out.println("Cantidad de balas disponibles: " + (contadorBalas) );
+        System.out.println("Cantidad de enemigos vivos: " + (contadorEnemigo));
     }
 
 
