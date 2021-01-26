@@ -238,7 +238,7 @@ public class Main {
             }
         }
 
-        if (cont == _enemies.length-1){
+        if (cont == _enemies.length){
             comparator = true;
         }
 
@@ -256,9 +256,6 @@ public class Main {
         if (_guns.length - _contador > 0){
             contadorBalas = _guns.length - _contador;
         }
-
-
-
 
         System.out.println();
         System.out.println("Cantidad de balas disponibles: " + (contadorBalas) );
