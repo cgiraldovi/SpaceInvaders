@@ -33,4 +33,10 @@ public class Shot {
         return _forma;
     }
 
+    public void move(){
+        set_positionY(get_positionY() -1);
+    }
+
+
+
 }
