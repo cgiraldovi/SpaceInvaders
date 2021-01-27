@@ -2,31 +2,38 @@ import java.util.Scanner;
 
 public class GameEngine {
     public static Scanner entrada = new Scanner(System.in);
-    public static Map _mapa;
+    public static Map _map;
     public static Enemy[] _enemies;
-    public static Player _jugador;
+    public static Player _player;
     public static Shot[] _guns;
-    public static Boolean _game = true;
+    public static Boolean _gaming = true;
     public static int _gunCont =0;
 
     public void game(){
         while(true){
-            _mapa = new Map(26, 8);
-            _enemies = new Enemy[11];
-            _jugador = new Player(1, _mapa.get_distanceX(), _mapa.get_distanceY());
+            _map = new Map(26, 5);
+            _enemies = new Enemy[10];
+            _player = new Player(1, _map.get_distanceX(), _map.get_distanceY());
             _guns = new Shot[20];
 
-            int cont = 0;
+            int posX = -2;
+            int posY = 0;
+            Boolean contY = true;
             for (int i = 0; i < _enemies.length; i++) {
-                int posX = cont;
-                int posY;
-                if (i % 2 == 0) {
-                    posY = 0;
-                } else {
-                    posY = 1;
+                posX = posX + 4;
+                if (posX >= _map.get_distanceX()){
+                    if (contY){
+                        contY = false;
+                        posX = 3;
+                    } else {
+                        contY = true;
+                        posX = 2;
+                    }
+                    posY = posY +2;
+
                 }
                 _enemies[i] = new Enemy(1, posX, posY);
-                cont = cont +2;
+
             }
 
 
@@ -42,35 +49,20 @@ public class GameEngine {
             System.out.println();
             System.out.println("Y: Si");
             System.out.println("N: No");
-
             System.out.println();
 
             String option = entrada.next();
             if (option.equalsIgnoreCase("y")) {
                 while (true) {
                     play();
-                    if (badEnding()){
-                        System.out.println();
-                        System.out.println();
-                        System.out.println();
-                        System.out.println("Felicidades, has perdido, haber estudiado");
-                        System.out.println();
-                        System.out.println();
+                    badEnding();
+                    if (!_gaming){
                         break;
                     }
-                    if (goodEnding()){
-                        System.out.println();
-                        System.out.println();
-                        System.out.println();
-                        System.out.println("Felicidades, has ganado, se nota que has estudiado");
-                        System.out.println();
-                        System.out.println();
+                    goodEnding();
+                    if (!_gaming){
                         break;
                     }
-                    if (!_game){
-                        break;
-                    }
-
                 }
             } else if (option.equalsIgnoreCase("n")){
                 break;
@@ -92,11 +84,11 @@ public class GameEngine {
     public void enemyMove(){
         for (Enemy  enemy : _enemies){
             if (enemy != null){
-            enemy.move(_mapa);}
+            enemy.move(_map);}
         }
     }
 
-    public static void gunMove() {
+    public void gunMove() {
         for (Shot gun : _guns) {
             if (gun != null)
                 gun.move();
@@ -108,16 +100,16 @@ public class GameEngine {
         String option = entrada.next();
 
         if(option.equalsIgnoreCase("a")){
-            _jugador.moveLeft();
-            _jugador.move(_mapa);
+            _player.moveLeft();
+            _player.move(_map);
         } else if(option.equalsIgnoreCase("d")){
-            _jugador.moveRight();
-            _jugador.move(_mapa);
+            _player.moveRight();
+            _player.move(_map);
         } else if(option.equalsIgnoreCase("exit")){
-            _game = false;
+            _gaming = false;
         } else if (option.equalsIgnoreCase("o")) {
             if (_gunCont < _guns.length) {
-                _guns[_gunCont] = _jugador.shoot();
+                _guns[_gunCont] = _player.shoot();
             }
             _gunCont++;
         }
@@ -129,18 +121,18 @@ public class GameEngine {
 
     public void getMap() {
 
-        _mapa.createMap();
+        _map.createMap();
 
-        for (int j = 0; j < _mapa.get_distanceY(); j++) {
-            for (int i = 0; i < _mapa.get_distanceX(); i++) {
-                if (j == _jugador.get_positionY() && i == _jugador.get_positionX()) {
-                    _mapa._matriz[j][i] = _jugador.get_shape();
+        for (int j = 0; j < _map.get_distanceY(); j++) {
+            for (int i = 0; i < _map.get_distanceX(); i++) {
+                if (j == _player.get_positionY() && i == _player.get_positionX()) {
+                    _map.set_matriz(j,i, _player.get_shape());
                 }
 
                 for (int e = 0; e < _enemies.length; e++) {
                     if (_enemies[e] != null) {
                         if (j == _enemies[e].get_positionY() && i == _enemies[e].get_positionX()) {
-                            _mapa._matriz[j][i] = _enemies[e].get_shape();
+                            _map.set_matriz(j,i,_enemies[e].get_shape());
                         }
                     }
                 }
@@ -154,7 +146,7 @@ public class GameEngine {
                                         && _enemies[l].get_positionY() == _guns[k].get_positionY()) {
                                     if (_enemies[l].get_health() - _guns[k].get_damage() == 0) {
                                         _enemies[l] = null;
-                                        _mapa._matriz[_guns[k].get_positionY()][_guns[k].get_positionX()] = "X";
+                                        _map.set_matriz(_guns[k].get_positionY(), _guns[k].get_positionX(),"X");
                                     }
                                     _guns[k] = null;
 
@@ -164,7 +156,7 @@ public class GameEngine {
 
                         if (_guns[k] != null) {
                             if (j == _guns[k].get_positionY() && i == _guns[k].get_positionX()) {
-                                _mapa._matriz[j][i] = _guns[k].get_forma();
+                                _map.set_matriz(j,i,_guns[k].get_shape());
                             }
                         }
                     }
@@ -178,39 +170,48 @@ public class GameEngine {
         }
 
 
-        _mapa.showMap();
+        _map.showMap();
 
     }
 
 
 
-    public static Boolean badEnding(){
-        Boolean comparator = false;
+    public void badEnding(){
         for (Enemy enemigo: _enemies){
             if (enemigo != null){
-                if (enemigo.get_positionY() == _mapa.get_distanceY()-1){
-                    comparator = true;
+                if (enemigo.get_positionY() == _map.get_distanceY()-1){
+                    _gaming = false;
                     break;
                 }
             }
         }
-        return comparator;
+        if (!_gaming){
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        System.out.println("Felicidades, has perdido, haber estudiado");
+        System.out.println();
+        System.out.println();}
     }
 
-    public static Boolean goodEnding(){
-        Boolean comparator = false;
+    public void goodEnding(){
         int cont = 0;
         for (Enemy enemigo: _enemies){
             if (enemigo == null){
                 cont ++;
             }
         }
-
         if (cont == _enemies.length){
-            comparator = true;
+            _gaming = false;
         }
-
-        return comparator;
+        if (!_gaming){
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println("Felicidades, has ganado, se nota que has estudiado");
+            System.out.println();
+            System.out.println();
+        }
     }
 
     public static void information(){

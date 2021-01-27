@@ -1,5 +1,5 @@
 public class Shot {
-    private String _forma = "o";
+    private String _shape = "o";
     private int _damage = 1;
     protected int _positionX;
     protected int _positionY;
@@ -29,8 +29,8 @@ public class Shot {
         return _damage;
     }
 
-    public String get_forma() {
-        return _forma;
+    public String get_shape() {
+        return _shape;
     }
 
     public void move(){

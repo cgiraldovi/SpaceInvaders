@@ -1,13 +1,9 @@
 public class Player extends Ship {
     public Player(int health, int positionX, int positionY) {
         super(health);
-        _positionX = positionX/2;
-        _positionY = positionY -1;
+        _positionX = positionX / 2;
+        _positionY = positionY - 1;
         set_shape("H");
-
-
-
-
     }
 
 
@@ -27,19 +23,19 @@ public class Player extends Ship {
         return gun;
     }
 
-    public void moveLeft(){
-        set_positionX(get_positionX()-1);
+    public void moveLeft() {
+        set_positionX(get_positionX() - 1);
     }
 
-    public void moveRight(){
-        set_positionX(get_positionX()+1);
+    public void moveRight() {
+        set_positionX(get_positionX() + 1);
     }
 
     public void move(Map map) {
         if (get_positionX() > map.get_distanceX() - 1) {
-            set_positionX(get_positionX() -1);
+            set_positionX(get_positionX() - 1);
         } else if (get_positionX() < 0) {
-            set_positionX(get_positionX() +1);
+            set_positionX(get_positionX() + 1);
         }
     }
 

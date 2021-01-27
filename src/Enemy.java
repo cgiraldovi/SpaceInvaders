@@ -1,12 +1,12 @@
 public class Enemy extends Ship {
-    public boolean comparador;
+    private boolean _comparator;
 
     public Enemy(int health, int positionX, int positionY) {
         super(health);
-        _positionX = positionX + 2;
+        _positionX = positionX;
         _positionY = positionY;
         set_shape("Y");
-        comparador = true;
+        _comparator = true;
     }
 
 
@@ -20,23 +20,23 @@ public class Enemy extends Ship {
 
     public void move(Map map) {
 
-                if (comparador){
+                if (_comparator){
                     if (get_positionX() == map.get_distanceX()-1) {
                         set_positionY(get_positionY() + 1);
                         set_positionX(get_positionX() +1);
-                        comparador = false;
+                        _comparator = false;
                     }
                 }
 
-                if (!comparador){
+                if (!_comparator){
                     if (get_positionX() == 0) {
                         set_positionY(get_positionY()+1);
                         set_positionX(get_positionX() -1);
-                        comparador = true;
+                        _comparator = true;
                     }
                 }
 
-                if (comparador) {
+                if (_comparator) {
                     set_positionX(get_positionX()+1);
                 } else {
                     set_positionX(get_positionX()-1);
