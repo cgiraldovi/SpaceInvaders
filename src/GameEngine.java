@@ -7,11 +7,12 @@ public class GameEngine {
     public static Player _player;
     public static Shot[] _guns;
     public static Boolean _gaming = true;
-    public static int _gunCont =0;
+    public static int _gunCont;
+    public static int _points;
 
     public void game(){
         while(true){
-            _map = new Map(26, 10);
+            _map = new Map(26, 6);
             _enemies = new Enemy[10];
             _player = new Player(1, _map.get_distanceX(), _map.get_distanceY());
             _guns = new Shot[20];
@@ -116,8 +117,19 @@ public class GameEngine {
                                 if (_enemies[l].get_positionX() == _guns[k].get_positionX()
                                         && _enemies[l].get_positionY() == _guns[k].get_positionY()) {
                                     if (_enemies[l].get_health() - _guns[k].get_damage() == 0) {
+
+                                        if (_enemies[l] instanceof Meteorite){
+                                            _points += 150;
+                                        } else if (_enemies[l] instanceof ShipEnemy){
+                                            _points += 300;
+                                        }
                                         _enemies[l] = null;
                                         _map.set_matriz(_guns[k].get_positionY(), _guns[k].get_positionX(),"X");
+
+
+
+                                    } else if(_enemies[l].get_health() > _guns[k].get_damage()){
+                                        _enemies[l].set_health(_enemies[l].get_health() - _guns[k].get_damage());
                                     }
                                     _guns[k] = null;
 
@@ -188,12 +200,9 @@ public class GameEngine {
     public void information(){
         int contadorBalas = 0;
         int contadorEnemigo = 0;
-        int points = 0;
         for (Enemy enemigo: _enemies){
             if (enemigo != null){
                 contadorEnemigo ++;
-            } else{
-                points = points + 150;
             }
         }
 
@@ -204,7 +213,7 @@ public class GameEngine {
         System.out.println();
         System.out.println("Cantidad de balas disponibles: " + (contadorBalas) );
         System.out.println("Cantidad de enemigos vivos: " + (contadorEnemigo));
-        System.out.println("Puntos: " + points);
+        System.out.println("Puntos: " + _points);
     }
 
     public void menu(){
@@ -240,10 +249,10 @@ public class GameEngine {
                 posY = posY +2;
 
             }
-            if (i == 5){
-                _enemies[i] = new Enemy(2,posX,posY,"V");
+            if (i%3==0){
+                _enemies[i] = new ShipEnemy(2,posX,posY);
             } else {
-                _enemies[i] = new Enemy(1, posX, posY,"Y");
+                _enemies[i] = new Meteorite(1, posX, posY);
             }
         }
     }

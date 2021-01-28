@@ -1,11 +1,10 @@
 public class Enemy extends Ship {
     private boolean _comparator;
 
-    public Enemy(int health, int positionX, int positionY, String shape) {
+    public Enemy(int health, int positionX, int positionY) {
         super(health);
         _positionX = positionX;
         _positionY = positionY;
-        _shape = shape;
         _comparator = true;
     }
 
