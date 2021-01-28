@@ -15,6 +15,8 @@ public class GameEngine {
             _enemies = new Enemy[10];
             _player = new Player(1, _map.get_distanceX(), _map.get_distanceY());
             _guns = new Shot[20];
+            _gaming = true;
+            _gunCont = 0;
 
 
             enemiesInitializer();
@@ -55,6 +57,8 @@ public class GameEngine {
             enemy.move(_map);}
         }
     }
+
+
 
     public void gunMove() {
         for (Shot gun : _guns) {
@@ -184,11 +188,15 @@ public class GameEngine {
     public void information(){
         int contadorBalas = 0;
         int contadorEnemigo = 0;
+        int points = 0;
         for (Enemy enemigo: _enemies){
             if (enemigo != null){
                 contadorEnemigo ++;
+            } else{
+                points = points + 150;
             }
         }
+
         if (_guns.length - _gunCont > 0){
             contadorBalas = _guns.length - _gunCont;
         }
@@ -196,6 +204,7 @@ public class GameEngine {
         System.out.println();
         System.out.println("Cantidad de balas disponibles: " + (contadorBalas) );
         System.out.println("Cantidad de enemigos vivos: " + (contadorEnemigo));
+        System.out.println("Puntos: " + points);
     }
 
     public void menu(){
@@ -231,7 +240,11 @@ public class GameEngine {
                 posY = posY +2;
 
             }
-            _enemies[i] = new Enemy(1, posX, posY);
+            if (i == 5){
+                _enemies[i] = new Enemy(2,posX,posY,"V");
+            } else {
+                _enemies[i] = new Enemy(1, posX, posY,"Y");
+            }
         }
     }
 
