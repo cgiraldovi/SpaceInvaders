@@ -11,46 +11,14 @@ public class GameEngine {
 
     public void game(){
         while(true){
-            _map = new Map(26, 5);
+            _map = new Map(26, 10);
             _enemies = new Enemy[10];
             _player = new Player(1, _map.get_distanceX(), _map.get_distanceY());
             _guns = new Shot[20];
 
-            int posX = -2;
-            int posY = 0;
-            Boolean contY = true;
-            for (int i = 0; i < _enemies.length; i++) {
-                posX = posX + 4;
-                if (posX >= _map.get_distanceX()){
-                    if (contY){
-                        contY = false;
-                        posX = 3;
-                    } else {
-                        contY = true;
-                        posX = 2;
-                    }
-                    posY = posY +2;
 
-                }
-                _enemies[i] = new Enemy(1, posX, posY);
-
-            }
-
-
-
-            System.out.println("Bienvendio a esta mecha de juego");
-            System.out.println("Moverse hacia la izquierda: a");
-            System.out.println("Moverse hacia la derecha: d");
-            System.out.println("Disparar: o");
-            System.out.println("Salir de la partida: exit");
-            System.out.println("Si desea no hacer ninguna accion, pulse cualquier otra tecla");
-            System.out.println();
-            System.out.println("desea comenzar con el juego?");
-            System.out.println();
-            System.out.println("Y: Si");
-            System.out.println("N: No");
-            System.out.println();
-
+            enemiesInitializer();
+            menu();
             String option = entrada.next();
             if (option.equalsIgnoreCase("y")) {
                 while (true) {
@@ -92,7 +60,6 @@ public class GameEngine {
         for (Shot gun : _guns) {
             if (gun != null)
                 gun.move();
-
         }
     }
 
@@ -214,7 +181,7 @@ public class GameEngine {
         }
     }
 
-    public static void information(){
+    public void information(){
         int contadorBalas = 0;
         int contadorEnemigo = 0;
         for (Enemy enemigo: _enemies){
@@ -231,7 +198,42 @@ public class GameEngine {
         System.out.println("Cantidad de enemigos vivos: " + (contadorEnemigo));
     }
 
+    public void menu(){
+        System.out.println();
+        System.out.println("Bienvendio a esta mecha de juego");
+        System.out.println("Moverse hacia la izquierda: a");
+        System.out.println("Moverse hacia la derecha: d");
+        System.out.println("Disparar: o");
+        System.out.println("Salir de la partida: exit");
+        System.out.println("Si desea no hacer ninguna accion, pulse cualquier otra tecla");
+        System.out.println();
+        System.out.println("Desea comenzar con el juego?");
+        System.out.println();
+        System.out.println("Y: Si");
+        System.out.println("N: No");
+        System.out.println();
+    }
 
+    public void enemiesInitializer(){
+        int posX = -2;
+        int posY = 0;
+        Boolean contY = true;
+        for (int i = 0; i < _enemies.length; i++) {
+            posX = posX + 4;
+            if (posX >= _map.get_distanceX()){
+                if (contY){
+                    contY = false;
+                    posX = 3;
+                } else {
+                    contY = true;
+                    posX = 2;
+                }
+                posY = posY +2;
+
+            }
+            _enemies[i] = new Enemy(1, posX, posY);
+        }
+    }
 
 
 }

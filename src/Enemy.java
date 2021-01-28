@@ -21,7 +21,7 @@ public class Enemy extends Ship {
     public void move(Map map) {
 
                 if (_comparator){
-                    if (get_positionX() == map.get_distanceX()-1) {
+                    if (get_positionX() >= map.get_distanceX()-1) {
                         set_positionY(get_positionY() + 1);
                         set_positionX(get_positionX() +1);
                         _comparator = false;
@@ -29,7 +29,7 @@ public class Enemy extends Ship {
                 }
 
                 if (!_comparator){
-                    if (get_positionX() == 0) {
+                    if (get_positionX() <= 0) {
                         set_positionY(get_positionY()+1);
                         set_positionX(get_positionX() -1);
                         _comparator = true;
