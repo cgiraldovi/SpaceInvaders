@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class GameEngine {
@@ -5,7 +6,8 @@ public class GameEngine {
     public static Map _map;
     public static Enemy[] _enemies;
     public static Player _player;
-    public static Shot[] _guns;
+    public static ArrayList<Shot> _guns = new ArrayList<>();
+    public static Shot[] _gunsPlayer;
     public static Boolean _gaming = true;
     public static int _gunCont;
     public static int _points;
@@ -15,7 +17,7 @@ public class GameEngine {
             _map = new Map(26, 6);
             _enemies = new Enemy[10];
             _player = new Player(1, _map.get_distanceX(), _map.get_distanceY());
-            _guns = new Shot[20];
+            _gunsPlayer = new Shot[20];
             _gaming = true;
             _gunCont = 0;
 
@@ -62,7 +64,7 @@ public class GameEngine {
 
 
     public void gunMove() {
-        for (Shot gun : _guns) {
+        for (Shot gun : _gunsPlayer) {
             if (gun != null)
                 gun.move();
         }
@@ -80,8 +82,8 @@ public class GameEngine {
         } else if(option.equalsIgnoreCase("exit")){
             _gaming = false;
         } else if (option.equalsIgnoreCase("o")) {
-            if (_gunCont < _guns.length) {
-                _guns[_gunCont] = _player.shoot();
+            if (_gunCont < _gunsPlayer.length) {
+                _gunsPlayer[_gunCont] = _player.shoot();
             }
             _gunCont++;
         }
@@ -108,15 +110,15 @@ public class GameEngine {
                         }
                     }
                 }
-                for (int k = 0; k < _guns.length; k++) {
+                for (int k = 0; k < _gunsPlayer.length; k++) {
 
                     for (int l = 0; l < _enemies.length; l++) {
 
-                        if (_guns[k] != null) {
+                        if (_gunsPlayer[k] != null) {
                             if (_enemies[l] != null) {
-                                if (_enemies[l].get_positionX() == _guns[k].get_positionX()
-                                        && _enemies[l].get_positionY() == _guns[k].get_positionY()) {
-                                    if (_enemies[l].get_health() - _guns[k].get_damage() == 0) {
+                                if (_enemies[l].get_positionX() == _gunsPlayer[k].get_positionX()
+                                        && _enemies[l].get_positionY() == _gunsPlayer[k].get_positionY()) {
+                                    if (_enemies[l].get_health() - _gunsPlayer[k].get_damage() == 0) {
 
                                         if (_enemies[l] instanceof Meteorite){
                                             _points += 150;
@@ -124,22 +126,22 @@ public class GameEngine {
                                             _points += 300;
                                         }
                                         _enemies[l] = null;
-                                        _map.set_matriz(_guns[k].get_positionY(), _guns[k].get_positionX(),"X");
+                                        _map.set_matriz(_gunsPlayer[k].get_positionY(), _gunsPlayer[k].get_positionX(),"X");
 
 
 
-                                    } else if(_enemies[l].get_health() > _guns[k].get_damage()){
-                                        _enemies[l].set_health(_enemies[l].get_health() - _guns[k].get_damage());
+                                    } else if(_enemies[l].get_health() > _gunsPlayer[k].get_damage()){
+                                        _enemies[l].set_health(_enemies[l].get_health() - _gunsPlayer[k].get_damage());
                                     }
-                                    _guns[k] = null;
+                                    _gunsPlayer[k] = null;
 
                                 }
                             }
                         }
 
-                        if (_guns[k] != null) {
-                            if (j == _guns[k].get_positionY() && i == _guns[k].get_positionX()) {
-                                _map.set_matriz(j,i,_guns[k].get_shape());
+                        if (_gunsPlayer[k] != null) {
+                            if (j == _gunsPlayer[k].get_positionY() && i == _gunsPlayer[k].get_positionX()) {
+                                _map.set_matriz(j,i, _gunsPlayer[k].get_shape());
                             }
                         }
                     }
@@ -206,8 +208,8 @@ public class GameEngine {
             }
         }
 
-        if (_guns.length - _gunCont > 0){
-            contadorBalas = _guns.length - _gunCont;
+        if (_gunsPlayer.length - _gunCont > 0){
+            contadorBalas = _gunsPlayer.length - _gunCont;
         }
 
         System.out.println();

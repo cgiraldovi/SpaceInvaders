@@ -1,12 +1,12 @@
-public class Shot {
-    private String _shape = "o";
-    private int _damage = 1;
+abstract class Shot {
+    protected String _shape = "o";
+    protected int _damage = 1;
     protected int _positionX;
     protected int _positionY;
 
     public Shot(int positionX, int positionY) {
-        set_positionX(positionX-1);
-        set_positionY(positionY + 1);
+        set_positionX(positionX);
+        set_positionY(positionY);
     }
 
     public void set_positionY(int positionY) {
@@ -14,7 +14,7 @@ public class Shot {
     }
 
     public void set_positionX(int positionX) {
-        _positionX = positionX+1;
+        _positionX = positionX;
     }
 
     public int get_positionY() {
@@ -33,10 +33,7 @@ public class Shot {
         return _shape;
     }
 
-    public void move(){
-        set_positionY(get_positionY() -1);
-    }
-
+    abstract void move();
 
 
 }
