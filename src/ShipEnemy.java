@@ -3,4 +3,10 @@ public class ShipEnemy extends Enemy {
         super(health, positionX, positionY);
         set_shape("V");
     }
+
+    public ShotEnemy shoot() {
+        ShotEnemy gun = new ShotEnemy(get_positionX(), get_positionY() );
+        return gun;
+    }
+
 }

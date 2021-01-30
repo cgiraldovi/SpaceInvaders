@@ -41,4 +41,6 @@ public class Enemy extends Ship {
                     set_positionX(get_positionX()-1);
                 }
     }
+
+
 }
