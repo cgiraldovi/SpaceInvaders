@@ -63,7 +63,7 @@ public class GameEngine {
 
                 int numero = (int) (Math.random() * 10) + 1;
                 if (enemy instanceof ShipEnemy) {
-                    if (numero % 5 == 0) {
+                    if (numero % 1 == 0) {
                         if (_gunEnemyCont < _gunsEnemy.length) {
                             _gunsEnemy[_gunEnemyCont] = ((ShipEnemy) enemy).shoot();
                         }
@@ -130,9 +130,7 @@ public class GameEngine {
                 for (int gunPlayer = 0; gunPlayer < _gunsPlayer.length; gunPlayer++) {
                     for (int gunEnemy = 0; gunEnemy < _gunsEnemy.length; gunEnemy++) {
                         for (int enemy = 0; enemy < _enemies.length; enemy++) {
-
-
-
+                            
 
 
                             if (_gunsEnemy[gunEnemy] != null && _gunsPlayer[gunPlayer] != null && _enemies[enemy] != null) {
@@ -184,6 +182,14 @@ public class GameEngine {
                                 }
                             }
 
+                            if (_gunsEnemy[gunEnemy] != null) {
+                                if (_gunsEnemy[gunEnemy]._positionY == _player.get_positionY() && _gunsEnemy[gunEnemy].get_positionX() == _player.get_positionX()){
+                                    _map.set_matriz(_player.get_positionY(), _player.get_positionX(), "X");
+                                    _gaming = false;
+                                    break;
+                                }
+                                
+                            }
 
 
                         }
