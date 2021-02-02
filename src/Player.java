@@ -1,4 +1,7 @@
 public class Player extends Ship {
+    private ShotPlayer[] _gunsPlayer = new ShotPlayer[20];
+    public static int cont = 0;
+
     public Player(int health, int positionX, int positionY) {
         super(health);
         _positionX = positionX / 2;
@@ -18,9 +21,12 @@ public class Player extends Ship {
     }
 
 
-    public ShotPlayer shoot() {
-        ShotPlayer gun = new ShotPlayer(get_positionX(), get_positionY() - 1);
-        return gun;
+    public void shoot() {
+        if (cont < _gunsPlayer.length){
+            _gunsPlayer[cont] = new ShotPlayer(get_positionX(), get_positionY() - 1);
+            cont++;
+        }
+
     }
 
     public void moveLeft() {
@@ -37,6 +43,10 @@ public class Player extends Ship {
         } else if (get_positionX() < 0) {
             set_positionX(get_positionX() + 1);
         }
+    }
+
+    public ShotPlayer[] get_gunsPlayer() {
+        return _gunsPlayer;
     }
 
 }
