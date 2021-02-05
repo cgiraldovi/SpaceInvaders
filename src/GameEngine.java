@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class GameEngine {
@@ -122,7 +121,7 @@ public class GameEngine {
                         for (int gunEnemy = 0; gunEnemy < ShipEnemy.length_gunsEnemy; gunEnemy++) {
 
 
-                            if (_enemies[enemy] != null && _player.get_gunsPlayer()[gunPlayer] != null && _enemies[enemy] != null) {
+                            if ( _player.get_gunsPlayer()[gunPlayer] != null && _enemies[enemy] != null) {
                                 if (_enemies[enemy].get_positionX() == _player.get_gunsPlayer()[gunPlayer].get_positionX()
                                         && _enemies[enemy].get_positionY() == _player.get_gunsPlayer()[gunPlayer].get_positionY()) {
 
@@ -142,28 +141,28 @@ public class GameEngine {
                                     _player.get_gunsPlayer()[gunPlayer] = null;
 
 
-                                }
-                                if (_enemies[enemy] instanceof ShipEnemy) {
-                                    if (((ShipEnemy) _enemies[enemy]).get_guns()[gunEnemy].get_positionX() == _player.get_gunsPlayer()[gunPlayer].get_positionX() &&
-                                            ((ShipEnemy) _enemies[enemy]).get_guns()[gunEnemy].get_positionY() == _player.get_gunsPlayer()[gunPlayer].get_positionY()) {
+                                } else if (_enemies[enemy] instanceof ShipEnemy) {
+
+                                    if (_player.get_gunsPlayer()[gunPlayer] != null && _enemies[enemy] != null){
+                                        if (((ShipEnemy) _enemies[enemy]).get_guns()[gunEnemy].get_positionX() == _player.get_gunsPlayer()[gunPlayer].get_positionX() &&
+                                                ((ShipEnemy) _enemies[enemy]).get_guns()[gunEnemy].get_positionY() == _player.get_gunsPlayer()[gunPlayer].get_positionY()) {
 
 
-                                        _map.set_matriz(_player.get_gunsPlayer()[gunPlayer].get_positionY(), _player.get_gunsPlayer()[gunPlayer].get_positionX(), "X");
-                                        _map.set_matriz(((ShipEnemy) _enemies[enemy]).get_guns()[gunEnemy].get_positionY(), ((ShipEnemy) _enemies[enemy]).get_guns()[gunEnemy].get_positionX(), "X");
-                                        ((ShipEnemy) _enemies[enemy]).get_guns()[gunEnemy] = null;
-                                        _player.get_gunsPlayer()[gunPlayer] = null;
+                                            _map.set_matriz(_player.get_gunsPlayer()[gunPlayer].get_positionY(), _player.get_gunsPlayer()[gunPlayer].get_positionX(), "X");
+                                            _map.set_matriz(((ShipEnemy) _enemies[enemy]).get_guns()[gunEnemy].get_positionY(), ((ShipEnemy) _enemies[enemy]).get_guns()[gunEnemy].get_positionX(), "X");
+                                            ((ShipEnemy) _enemies[enemy]).get_guns()[gunEnemy] = null;
+                                            _player.get_gunsPlayer()[gunPlayer] = null;
 
+                                        }
+                                        if (((ShipEnemy) _enemies[enemy]).get_guns()[gunEnemy].get_positionX() == _player.get_gunsPlayer()[gunPlayer].get_positionX() && (((ShipEnemy) _enemies[enemy]).get_guns()[gunEnemy].get_positionY() - 1) == _player.get_gunsPlayer()[gunPlayer].get_positionY()) {
+                                            _map.set_matriz(_player.get_gunsPlayer()[gunPlayer].get_positionY(), _player.get_gunsPlayer()[gunPlayer].get_positionX(), "X");
+                                            _map.set_matriz(((ShipEnemy) _enemies[enemy]).get_guns()[gunEnemy].get_positionY(), ((ShipEnemy) _enemies[enemy]).get_guns()[gunEnemy].get_positionX(), "X");
+                                            ((ShipEnemy) _enemies[enemy]).get_guns()[gunEnemy] = null;
+                                            _player.get_gunsPlayer()[gunPlayer] = null;
+                                        }
                                     }
-                                    if (((ShipEnemy) _enemies[enemy]).get_guns()[gunEnemy].get_positionX() == _player.get_gunsPlayer()[gunPlayer].get_positionX() && (((ShipEnemy) _enemies[enemy]).get_guns()[gunEnemy].get_positionY() - 1) == _player.get_gunsPlayer()[gunPlayer].get_positionY()) {
-                                        _map.set_matriz(_player.get_gunsPlayer()[gunPlayer].get_positionY(), _player.get_gunsPlayer()[gunPlayer].get_positionX(), "X");
-                                        _map.set_matriz(((ShipEnemy) _enemies[enemy]).get_guns()[gunEnemy].get_positionY(), ((ShipEnemy) _enemies[enemy]).get_guns()[gunEnemy].get_positionX(), "X");
-                                        ((ShipEnemy) _enemies[enemy]).get_guns()[gunEnemy] = null;
-                                        _player.get_gunsPlayer()[gunPlayer] = null;
-                                    }
 
                                 }
-
-
                             }
                             if (_player.get_gunsPlayer()[gunPlayer] != null) {
                                 if (j == _player.get_gunsPlayer()[gunPlayer].get_positionY() && i == _player.get_gunsPlayer()[gunPlayer].get_positionX()) {
